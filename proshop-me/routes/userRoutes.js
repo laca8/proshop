@@ -1,0 +1,13 @@
+const express = require('express')
+const userController = require('../controller/userController')
+const {protect,admin} = require('../middleware/authMiddleware')
+const router = express.Router()
+router.route('/register').post(userController.register)
+router.route('/login').post(userController.login)
+router.get('/me',protect,userController.getProfile)
+router.put('/me',protect,userController.updateProfile)
+router.get('/',protect,admin,userController.getUsers)
+router.put('/:id',protect,admin,userController.updateUsers)
+router.delete('/:id',protect,admin,userController.deleteUser)
+router.get('/:id',protect,admin,userController.getUser)
+module.exports = router

@@ -1,0 +1,13 @@
+const express = require('express')
+const orderController = require('../controller/orderController')
+const {protect,admin} = require('../middleware/authMiddleware')
+const router = express.Router()
+//router.post('/',protect,orderController.addOrderItems)
+router.post('/',protect,orderController.addOrderItems)
+router.get('/',protect,admin,orderController.getOrders)
+router.get('/myorders',protect,orderController.getMyOrder)
+router.get('/:id',protect,orderController.getOrderById)
+router.get('/:id',protect,admin,orderController.deleteOrder)
+router.put('/:id/pay',protect,orderController.updateOrderToPaid)
+router.put('/:id/deliver',protect,admin,orderController.updateOrderToDelivered)
+module.exports = router
